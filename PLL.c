@@ -21,3 +21,19 @@ extern void Configurar_PLL(uint16_t reloj)
   // 6) enable use of PLL by clearing BYPASS
   SYSCTL->RCC2 &= ~0x00000800;
 }
+
+extern void SysTick_espera_1ms(float delay){
+  uint32_t i;
+  for(i=0; i<(int)(delay*1);i++){
+    SysTick_ms(5000);
+  }
+}
+
+extern void SysTick_ms(uint32_t cuentas){
+  SysTick->CTRL = (0<<0); //Primero deshabilitamos el reloj (porque es un periferico para darle la configuracion)
+  SysTick->LOAD = cuentas - 1; //Configuracion el maximo valor de carga (24 bits - 1 porque empieza en "0")
+  SysTick->VAL = 0; //empieza en 0
+  //       habilitar periferico            utiliza el reloj PLL configurable 
+  //while((SysTick->CTRL & 0x10000) == 0){} //Para verificar que aun no llega a la cuenta se monitorea el bit 16 = 0x10000;
+
+}

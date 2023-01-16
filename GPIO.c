@@ -15,7 +15,7 @@ extern void Configurar_GPIO(void)
 extern void Delay(void)
 {
   unsigned long volatile time;
-  time = 1600000;
+  time = 5000000;
   while(time)
   {
 		time--;
