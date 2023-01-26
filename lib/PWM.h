@@ -8,5 +8,6 @@
 #define PWM_PWM_H_
 
 extern void Configura_Reg_PWM1(uint16_t freq);
+void update_pwm_duty_cycle(void);
 
 #endif
