@@ -31,25 +31,39 @@ extern void Configura_Reg_PWM1(void)
     SYSCTL->RCGCGPIO |= (1 << 5);
 
     // Set pin F5 as PWM output 
-    GPIOF->AFSEL |= (1<<5);
-    GPIOF->PCTL = (GPIOF->PCTL & 0xFF0FFFFF) | (4<<20);
-    GPIOF->DIR |= (1<<5);
-    GPIOF->DEN |= (1<<5);
+    GPIOF->AFSEL |= (1<<5) | (1<<4) | (1<<3);
+    GPIOF->PCTL &= ~(0xFF << (5 * 4));
+    GPIOF->PCTL |= (0x54 << (5 * 4));
+    GPIOF->DIR |= (1<<5) | (1<<4) | (1<<3);
+    GPIOF->DEN |= (1<<5) | (1<<4) | (1<<3);
 
     // Configure PWM clock to be system clock divided by 64
-    PWM1->_2_CTL = (PWM1->_2_CTL & ~(0x3F << 2)) | (0x3F << 2);
+    SYSCTL->RCC |= (1<<20);
+    SYSCTL->RCC &= ~(0X1F << 17);
+    SYSCTL->RCC |= (0x05 << 17);
 
     // Set PWM period to 400,000 clock cycles (50 Hz)
-    PWM1->_2_LOAD = PWM_PERIOD;
+    PWM1->_3_LOAD = PWM_PERIOD;
 
     // Enable PWM output
-    PWM1->ENABLE |= (1 << 2);
+    PWM1->ENABLE |= (1<<3) | (1 << 2) | (1<<1);
 
     // Set initial duty cycle to 10%
+    PWM1->_3_CMPA = PWM_PERIOD / 10;
     PWM1->_2_CMPA = PWM_PERIOD / 10;
+    PWM1->_1_CMPA = PWM_PERIOD / 10;
 
-    // Start PWM
-    PWM1->_2_CTL |= (1 << 0);
+    // Configure PWM Generator
+    PWM1->_3_CTL = 0x00000000;
+    PWM1->_3_GENA = (0x8C << 16) | 0x80;
+    PWM1->_2_CTL = 0x00000000;
+    PWM1->_2_GENA = (0x8C << 16) | 0x80;
+    PWM1->_1_CTL = 0x00000000;
+    PWM1->_1_GENA = (0x8C << 16) | 0x80;
+
+    //Start PWM 
+    PWM1 -> ENABLE |= (1<<3) | (1<<2) | (1<<1);
+    
 }
 
 

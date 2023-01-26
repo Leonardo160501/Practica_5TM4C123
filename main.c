@@ -10,7 +10,7 @@ int main(void)
     Configura_Reg_PWM1();
     while(1)
     {
-        update_pwm_duty_cycle();
+        read_adc();
     }
     
 }
