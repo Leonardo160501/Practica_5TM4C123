@@ -66,7 +66,7 @@ extern void Configura_Reg_PWM1(void)
     
 }
 
-
+/*
 // Update PWM duty cycle based on ADC reading
 extern void update_pwm_duty_cycle(void) {
     // Read the value of the ADC
@@ -85,3 +85,4 @@ extern void update_pwm_duty_cycle(void) {
     // Update the PWM compare register with the new duty cycle
     PWM1->_2_CMPA = duty_cycle;
 }
+*/

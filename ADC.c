@@ -80,7 +80,8 @@ extern void ADC0_InSeq2(uint16_t *Result){
 
 }
 
-uint32_t read_adc(void) {
+
+extern void read_adc(void) {
    uint32_t adc_value[NUM_ADC_CHANNELS];
     // Start ADC conversion
     ADC0->PSSI = (1 << 3);
