@@ -1,6 +1,6 @@
 #include "lib/include.h"
 
-extern void Configura_Reg_PWM1(uint16_t freq)
+extern void Configura_Reg_PWM1(void)
 {
     /*
     SYSCTL->RCGCPWM |= (1<<0); //Enable reloj de modulo PWM0 pag 354
@@ -54,7 +54,7 @@ extern void Configura_Reg_PWM1(uint16_t freq)
 
 
 // Update PWM duty cycle based on ADC reading
-void update_pwm_duty_cycle(void) {
+extern void update_pwm_duty_cycle(void) {
     // Read the value of the ADC
     uint32_t adc_value = read_adc();
 

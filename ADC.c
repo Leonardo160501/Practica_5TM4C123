@@ -82,7 +82,7 @@ uint32_t read_adc(void) {
     // Start ADC conversion
     ADC0->PSSI = (1 << 3);
     // Wait for conversion to complete
-    while (ADC0->RIS & (1 << 3) == 0){};
+    while ((ADC0->RIS & (1 << 3)) == 0){};
     // Clear conversion complete flag
     ADC0->ISC = (1 << 3);
     // Return ADC value
